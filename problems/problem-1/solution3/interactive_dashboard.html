@@ -958,7 +958,54 @@
       display: block;
       margin-bottom: 14px;
     }
-  </style>
+  
+    /* ---------- Tabbar Mobile Scroll Wrapper & Arrows ---------- */
+    .tabbar-wrapper {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      margin: 22px 0 26px;
+    }
+    .tabbar-wrapper .tabbar {
+      position: static;
+      margin: 0;
+      scroll-behavior: smooth;
+    }
+    .tab-scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 45;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--panel-solid);
+      border: 1px solid var(--accent);
+      color: var(--ink);
+      font-size: 0.95rem;
+      font-weight: 800;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
+      backdrop-filter: blur(10px);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease, transform 0.2s ease, background 0.2s ease;
+    }
+    .tab-scroll-btn.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .tab-scroll-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-50%) scale(1.1);
+    }
+    .tab-scroll-btn.left { left: -14px; }
+    .tab-scroll-btn.right { right: -14px; }
+
+</style>
 </head>
 
 <body>
@@ -3882,7 +3929,57 @@
       }
     })();
 
-  </script>
+  
+/* ===== Mobile Tab Scroll Arrow Controller ===== */
+(function(){
+  var tabbar = document.getElementById("mainTabbar");
+  var btnLeft = document.getElementById("tabScrollLeft");
+  var btnRight = document.getElementById("tabScrollRight");
+
+  if (!tabbar || !btnLeft || !btnRight) return;
+
+  function updateArrowVisibility() {
+    var sl = tabbar.scrollLeft;
+    var maxScroll = tabbar.scrollWidth - tabbar.clientWidth;
+
+    if (sl > 6) {
+      btnLeft.classList.add("show");
+    } else {
+      btnLeft.classList.remove("show");
+    }
+
+    if (sl < maxScroll - 6) {
+      btnRight.classList.add("show");
+    } else {
+      btnRight.classList.remove("show");
+    }
+  }
+
+  btnLeft.addEventListener("click", function(){
+    tabbar.scrollBy({ left: -200, behavior: "smooth" });
+  });
+
+  btnRight.addEventListener("click", function(){
+    tabbar.scrollBy({ left: 200, behavior: "smooth" });
+  });
+
+  tabbar.addEventListener("scroll", updateArrowVisibility);
+  window.addEventListener("resize", updateArrowVisibility);
+
+  // Auto scroll active tab into view when clicked
+  var tabBtns = tabbar.querySelectorAll(".tabbtn");
+  tabBtns.forEach(function(b){
+    b.addEventListener("click", function(){
+      this.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+      setTimeout(updateArrowVisibility, 350);
+    });
+  });
+
+  // Initial check
+  setTimeout(updateArrowVisibility, 100);
+})();
+
+</script>
 </body>
 
 </html>
