@@ -1,19 +1,23 @@
-# Master Prompt: สั่งการ Claude Opus / GPT-5 (ฉบับอ้างอิง Skill circuit2-oral-exam-generator)
+# Master Prompt: สั่งการ Claude Opus / Claude 3.7 Sonnet (โจทย์ข้อที่ 1)
 
-> **วิธีใช้งาน:** คัดลอกข้อความในกรอบด้านล่างทั้งหมด ไปวางในช่องแชตของ Claude Opus หรือ Claude 3.7 Sonnet เพื่อให้ AI คำนวณและประมวลผลตามมาตรฐาน **Skill `circuit2-oral-exam-generator`** ได้ผลลัพธ์ละเอียด ลึกซึ้ง ไร้รอยต่อ 100%
+> **คำชี้แจงสำหรับการใช้งาน:** 
+> คัดลอกข้อความในกรอบด้านล่างทั้งหมด ไปวางในช่องแชตของ Claude Opus หรือ Claude 3.7 Sonnet 
+> เพื่อสั่งให้ AI ประมวลผลและสร้างชุดเฉลยพร้อมสื่อการสอนแบบโต้ตอบสำหรับ **โจทย์ข้อที่ 1** ตามมาตรฐาน **Skill `circuit2-oral-exam-generator`** ให้ได้ผลลัพธ์ระดับเกียรตินิยม ละเอียด ละออ และไร้จุดสะดุด 100%
 
 ---
 
 ```markdown
-Role & Master Mission:
-คุณคือ "อาจารย์มนุษย์ผู้คลั่งไคล้การสอนวิศวกรรมไฟฟ้า" (Master Human EE Educator)
-โปรดปฏิบัติตามมาตรฐานการสอนใน Skill `circuit2-oral-exam-generator` (ไฟล์ .agents/skills/circuit2-oral-exam-generator/SKILL.md) อย่างเคร่งครัด!
+Role & Master Educator Directive:
+คุณคือ "อาจารย์มหาวิทยาลัยผู้คลั่งไคล้การสอนวิศวกรรมไฟฟ้า" (Master Human EE Educator) 
+เราเลือกใช้คุณ (Claude Opus / Claude 3.7 Sonnet) เป็น "ทางเลือกสุดท้าย" หลังจากพบว่า AI รุ่นอื่นๆ ให้ผลลัพธ์ที่ตื้นเขิน ภาษาทื่อเหมือนหุ่นยนต์ AI ข้ามขั้นตอนคณิตศาสตร์ และไม่สามารถสร้างความเข้าใจที่แท้จริงให้กับนิสิตได้!
 
-ภารกิจกอบกู้ของคุณคือ: "ศึกษาข้อล้มเหลวของ solution2 ซึ่งทำให้นิสิตสอบปากเปล่าได้ 0 คะแนน แล้วสร้างชุดเฉลยและสื่อการสอนใหม่ใน problems/problem-1/solution3/ ที่สอนนิสิตไร้พื้นฐานให้เข้าใจลึกซึ้ง ไร้จุดสะดุด เรียงลำดับความคิดอย่างร้อยเรียงสมบูรณ์แบบ จนสามารถตอบคำถามกรรมการสอบปากเปล่าได้คะแนนเต็ม 100/100!"
+โปรดปฏิบัติตามมาตรฐานการสอนใน Skill `circuit2-oral-exam-generator` (ในไฟล์ .agents/skills/circuit2-oral-exam-generator/SKILL.md) อย่างเคร่งครัด!
+
+ภารกิจหลักของคุณคือ: "สร้างชุดเฉลยและสื่อการสอนใหม่ทั้งหมดใน problems/problem-1/solution3/ ที่สอนนิสิตไร้พื้นฐานให้เข้าใจลึกซึ้ง ไร้จุดสะดุด เรียงลำดับความคิดอย่างร้อยเรียงสมบูรณ์แบบ จนสามารถตอบคำถามกรรมการสอบปากเปล่าได้คะแนนเต็ม 100/100!"
 
 ---
 
-🎯 สิ่งที่ต้องขยายความลึกใน CLAUDE_SOLUTION.md ( Seamless Deepening ):
+🎯 สิ่งที่ต้องสร้างและขยายความลึกใน CLAUDE_SOLUTION.md ( Seamless Scaffolding ):
 
 1. Zero Mathematical Gaps (พิสูจน์คณิตศาสตร์แบบไม่ละบรรทัด):
    - ในบทที่ 2 และ 3: ห้ามใช้คำว่า "ในทำนองเดียวกัน" หรือข้ามขั้นตอนย้ายข้างสมการเด็ดขาด!
@@ -29,31 +33,33 @@ Role & Master Mission:
      • $-A_b e^{-B_b(Q_n-q)}$: Mass Transport Limitation (การแย่งกันวิ่งของไอออนช่วงแบตใกล้หมดจนแรงดันดิ่งพลดชนหน้าผา)
 
 3. Ultimate Oral Defense Masterclass (ขยายบทซ้อมตอบเป็น 15 ข้อ):
-   - เพิ่มคำถามสอบปากเปล่าจาก 10 ข้อ เป็น 15 ข้อ ครอบคลุมคำถามหยั่งเชิงของกรรมการ
+   - เพิ่มคำถามสอบปากเปล่าเป็น 15 ข้อ ครอบคลุมคำถามหยั่งเชิงของกรรมการ
    - ในแต่ละข้อ ให้แบ่งโครงสร้างการตอบเป็น 2 ระดับ:
      [1] บทตอบรอดชีวิต (Defensive Script): ตอบตรงประเด็น ไม่ตกกับดัก (ได้คะแนนผ่าน)
      [2] บทตอบเกียรตินิยม (Proactive Distinction Script): ตอบเชื่อมโยงกายภาพ ทฤษฎี BMS และเทคโนโลยี EV เพื่อให้กรรมการต้องแจก 100/100
 
 ---
 
-💻 สิ่งที่ต้องขยายใน interactive_dashboard.html ( Masterpiece Enhancement ):
+💻 สิ่งที่ต้องสร้างใน interactive_dashboard.html ( Masterpiece Enhancement ):
 
 1. Continuous Learning Flow:
    - ปรับการร้อยเรียงเนื้อหาในแต่ละแท็บให้ไหลลื่น มีการสรุปเชื่อมโยง (Connecting Bridge) จากแท็บก่อนหน้าเข้าสู่แท็บถัดไปอย่างธรรมชาติ
    - ปรับปรุงภาษาไทยให้เป็นภาษาพูดของอาจารย์ที่อบอุ่น ลึกซึ้ง และทรงพลัง
 
-2. UI & Interaction Standard:
+2. UI & Interaction Standard (ตามมาตรฐาน Skill):
    - ติดตั้งปุ่มถอยหลังกลับหน้าหลักที่มุมบนซ้าย (`top: 14px; left: 14px;`) ลิงก์ `../../../index.html`
    - ติดตั้งปุ่มเปิดรูปภาพโจทย์ที่มุมซ้ายล่าง (`bottom: 24px; left: 24px;`) แสดงผลทุกแท็บ
    - ปุ่มเลื่อนแท็บ `◀` / `▶` สลับแท็บทันที ซ่อนเมื่อสุดขอบ
 
 3. Parameter Inspector Widget (ในแท็บ Simulation Lab):
    - เพิ่มแถบ "Equation Breakdown Real-time Inspector" เมื่อผู้ใช้เลื่อน Time Scrubber ณ เวลา $t$:
-     แสดงองค์ประกอบแรงดันแยกชิ้นสดๆ:
-     $v(t) = \underbrace{E_o}_{\text{Base}} - \underbrace{i R_i}_{\text{Ohmic}} - \underbrace{K q}_{\text{Linear}} + \underbrace{A_a e^{-B_a q}}_{\text{Exponential Header}} - \underbrace{A_b e^{-B_b(Q_n-q)}}_{\text{Cliff Drop}}$
-     พร้อมบอกเปอร์เซ็นต์การมีอิทธิพลของแต่ละเทอม ณ วินาทีนั้น!
+     แสดงองค์ประกอบแรงดันแยกชิ้นสดๆ พร้อมบอกเปอร์เซ็นต์การมีอิทธิพลของแต่ละเทอม ณ วินาทีนั้น!
 
 ---
 
-จงดำเนินการปรับปรุงไฟล์ทั้งหมดใน problems/problem-1/solution3/ (ทั้ง CLAUDE_SOLUTION.md, interactive_dashboard.html, README.md, solve_circuit.py) ให้เป็นเวอร์ชันสมบูรณ์แบบที่สุดตามมาตรฐาน Skill `circuit2-oral-exam-generator`!
+🔄 การเชื่อมโยงกับ Master Portal Hub และสารบัญ (Auto Sync):
+1. อัปเดตไฟล์ index.html ที่ Root Directory ให้การ์ดโจทย์ข้อที่ 1 ปักป้าย `✅ พร้อมใช้งาน` พร้อมปุ่มกดทางเข้าหลักเพียงปุ่มเดียว
+2. อัปเดตไฟล์ README.md ประจำข้อ และ README.md ที่ Root Directory
+
+จงดำเนินการสร้าง/ปรับปรุงไฟล์ทั้งหมดใน problems/problem-1/solution3/ (ทั้ง CLAUDE_SOLUTION.md, interactive_dashboard.html, README.md, solve_circuit.py) ให้เป็นเวอร์ชันสมบูรณ์แบบที่สุดตามมาตรฐาน Skill `circuit2-oral-exam-generator`!
 ```
