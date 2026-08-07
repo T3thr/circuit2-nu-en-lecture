@@ -959,6 +959,7 @@
       margin-bottom: 14px;
     }
   
+    
     /* ---------- Tabbar Mobile Scroll Wrapper & Arrows ---------- */
     .tabbar-wrapper {
       position: sticky;
@@ -976,19 +977,20 @@
       top: 50%;
       transform: translateY(-50%);
       z-index: 45;
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
+      padding: 8px 14px;
+      border-radius: 999px;
       background: var(--panel-solid);
       border: 1px solid var(--accent);
       color: var(--ink);
-      font-size: 0.95rem;
+      font-size: 0.85rem;
       font-weight: 800;
       cursor: pointer;
-      display: grid;
-      place-items: center;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.35);
-      backdrop-filter: blur(10px);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.25s ease, transform 0.2s ease, background 0.2s ease;
@@ -1000,10 +1002,53 @@
     .tab-scroll-btn:hover {
       background: var(--accent);
       color: #fff;
-      transform: translateY(-50%) scale(1.1);
+      transform: translateY(-50%) scale(1.06);
     }
-    .tab-scroll-btn.left { left: -14px; }
-    .tab-scroll-btn.right { right: -14px; }
+    .tab-scroll-btn.left { left: -10px; }
+    .tab-scroll-btn.right { right: -10px; }
+
+    /* Bottom Panel Nav Buttons for Mobile */
+    .panel-bottom-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid var(--line);
+      flex-wrap: wrap;
+    }
+    .panel-nav-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 20px;
+      border-radius: 14px;
+      background: var(--panel-solid);
+      border: 1px solid var(--line-strong);
+      color: var(--ink);
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+    }
+    .panel-nav-btn:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+    }
+    .panel-nav-btn.next {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      margin-left: auto;
+    }
+    .panel-nav-btn.next:hover {
+      filter: brightness(1.12);
+      color: #fff;
+    }
 
 </style>
 </head>
@@ -1214,7 +1259,8 @@
               class="mono">i<sub>s</sub> = 0.74 − v/10</span> ตั้งแต่ต้น</p>
         </div>
       </div>
-    </section>
+    <div class="panel-bottom-nav"><button class="panel-nav-btn next" onclick="switchToPanel('p2')">ถัดไป: บทที่ 2 ปูพื้นฐานจาก 0 ➔</button></div>
+</section>
 
     <!-- ======================= TAB 2 ======================= -->
     <section class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden>
@@ -3930,7 +3976,8 @@
     })();
 
   
-/* ===== Mobile Tab Scroll Arrow Controller ===== */
+
+/* ===== Mobile Tab Scroll Arrow Controller (Direct Tab Switch & Arrow Hide) ===== */
 (function(){
   var tabbar = document.getElementById("mainTabbar");
   var btnLeft = document.getElementById("tabScrollLeft");
@@ -3938,45 +3985,76 @@
 
   if (!tabbar || !btnLeft || !btnRight) return;
 
-  function updateArrowVisibility() {
-    var sl = tabbar.scrollLeft;
-    var maxScroll = tabbar.scrollWidth - tabbar.clientWidth;
+  var tabs = Array.prototype.slice.call(tabbar.querySelectorAll(".tabbtn"));
 
-    if (sl > 6) {
+  function getActiveIndex() {
+    for (var i = 0; i < tabs.length; i++) {
+      if (tabs[i].getAttribute("aria-selected") === "true") return i;
+    }
+    return 0;
+  }
+
+  function updateArrowState() {
+    var idx = getActiveIndex();
+    
+    // Hide left arrow on first tab (idx === 0)
+    if (idx > 0) {
       btnLeft.classList.add("show");
     } else {
       btnLeft.classList.remove("show");
     }
 
-    if (sl < maxScroll - 6) {
+    // Hide right arrow on last tab (idx === tabs.length - 1)
+    if (idx < tabs.length - 1) {
       btnRight.classList.add("show");
     } else {
       btnRight.classList.remove("show");
     }
+
+    // Ensure active tab is scrolled into view
+    if (tabs[idx]) {
+      tabs[idx].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
   }
 
-  btnLeft.addEventListener("click", function(){
-    tabbar.scrollBy({ left: -200, behavior: "smooth" });
+  // Click Left Arrow -> Switch to Previous Tab
+  btnLeft.addEventListener("click", function(e){
+    e.preventDefault();
+    var idx = getActiveIndex();
+    if (idx > 0) {
+      tabs[idx - 1].click();
+    }
   });
 
-  btnRight.addEventListener("click", function(){
-    tabbar.scrollBy({ left: 200, behavior: "smooth" });
+  // Click Right Arrow -> Switch to Next Tab
+  btnRight.addEventListener("click", function(e){
+    e.preventDefault();
+    var idx = getActiveIndex();
+    if (idx < tabs.length - 1) {
+      tabs[idx + 1].click();
+    }
   });
 
-  tabbar.addEventListener("scroll", updateArrowVisibility);
-  window.addEventListener("resize", updateArrowVisibility);
-
-  // Auto scroll active tab into view when clicked
-  var tabBtns = tabbar.querySelectorAll(".tabbtn");
-  tabBtns.forEach(function(b){
+  // Tab click handler updates arrow state
+  tabs.forEach(function(b){
     b.addEventListener("click", function(){
-      this.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-      setTimeout(updateArrowVisibility, 350);
+      setTimeout(updateArrowState, 50);
     });
   });
 
   // Initial check
-  setTimeout(updateArrowVisibility, 100);
+  setTimeout(updateArrowState, 100);
+
+  // Global helper to switch tab by panel ID (e.g. p1..p6)
+  window.switchToPanel = function(panelId) {
+    for (var i = 0; i < tabs.length; i++) {
+      if (tabs[i].getAttribute("aria-controls") === panelId) {
+        tabs[i].click();
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        break;
+      }
+    }
+  };
 })();
 
 </script>
