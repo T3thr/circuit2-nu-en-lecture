@@ -2,54 +2,446 @@
 <html lang="th">
 <head>
   <meta charset="utf-8">
-  <meta http-equiv="refresh" content="0; url=solution3/interactive_dashboard.html">
-  <title>ห้องเรียนวงจรแบตเตอรี่ — 303212</title>
-  <script>
-    window.location.href = "solution3/interactive_dashboard.html";
-  </script>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>303212 Oral Exam Master Portal — 5 Special Circuit Problems</title>
+  <meta name="description" content="ศูนย์รวมโจทย์ สื่อการเรียนรู้แบบโต้ตอบ และคัมภีร์ซ้อมตอบสอบปากเปล่าวิชาวงจรไฟฟ้า II (303212) ทั้ง 5 ข้อ">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-dark: #070d18;
+      --bg-card: rgba(15, 27, 45, 0.76);
+      --bg-card-solid: #0e192b;
+      --border-line: rgba(140, 185, 235, 0.16);
+      --border-strong: rgba(140, 185, 235, 0.3);
+      --text-main: #edf5ff;
+      --text-muted: #94a8c0;
+      --text-dim: #647890;
+      --cyan: #46c7ff;
+      --cyan-soft: rgba(70, 199, 255, 0.12);
+      --purple: #a78bfa;
+      --green: #34d399;
+      --amber: #fbbf24;
+      --rose: #fb7185;
+      --shadow: 0 16px 50px rgba(0, 0, 0, 0.45);
+      --radius: 20px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
     body {
       margin: 0;
+      padding: 0;
       min-height: 100vh;
+      color: var(--text-main);
+      background:
+        radial-gradient(circle at 10% 10%, rgba(70, 199, 255, 0.13), transparent 32rem),
+        radial-gradient(circle at 90% 20%, rgba(167, 139, 250, 0.14), transparent 34rem),
+        linear-gradient(160deg, var(--bg-dark), #0b1424 60%, #050a12);
+      font-family: "IBM Plex Sans Thai", Inter, system-ui, -apple-system, sans-serif;
+      line-height: 1.7;
+    }
+
+    .container {
+      width: min(1380px, calc(100% - 36px));
+      margin: 0 auto;
+      padding: 36px 0 80px;
+    }
+
+    .glass {
+      background: var(--bg-card);
+      border: 1px solid var(--border-line);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+    }
+
+    /* Top Navigation */
+    .top-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 28px;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: var(--text-main);
+      font-weight: 700;
+      font-size: 1.15rem;
+    }
+
+    .brand-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
       display: grid;
       place-items: center;
-      background: #080d17;
-      color: #e8f0fb;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
-      text-align: center;
-      padding: 20px;
+      color: #050b14;
+      font-weight: 900;
+      font-size: 1.25rem;
     }
-    a {
-      color: #5b9dff;
+
+    .nav-links {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 18px;
+      border-radius: 12px;
+      border: 1px solid var(--border-line);
+      background: rgba(255, 255, 255, 0.04);
+      color: var(--text-main);
       text-decoration: none;
+      font-size: 0.88rem;
       font-weight: 600;
+      transition: all 0.2s ease;
     }
-    .box {
-      background: rgba(19, 29, 47, 0.85);
-      border: 1px solid rgba(150, 185, 230, 0.25);
-      border-radius: 20px;
-      padding: 40px 32px;
-      max-width: 520px;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+
+    .btn:hover {
+      background: var(--cyan-soft);
+      border-color: var(--cyan);
+      color: var(--cyan);
+      transform: translateY(-2px);
     }
-    .spinner {
-      width: 44px;
-      height: 44px;
-      border: 4px solid rgba(91, 157, 255, 0.2);
-      border-top-color: #5b9dff;
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 20px;
+
+    .btn.primary {
+      background: linear-gradient(135deg, var(--cyan), #2563eb);
+      color: #fff;
+      border: none;
+      box-shadow: 0 4px 20px rgba(70, 199, 255, 0.35);
     }
-    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .btn.primary:hover {
+      filter: brightness(1.12);
+      color: #fff;
+    }
+
+    .btn.github {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .btn.disabled {
+      opacity: 0.45;
+      pointer-events: none;
+      cursor: not-allowed;
+    }
+
+    /* Hero Banner */
+    .hero {
+      padding: 48px clamp(24px, 4vw, 56px);
+      margin-bottom: 36px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: var(--cyan-soft);
+      border: 1px solid rgba(70, 199, 255, 0.3);
+      color: var(--cyan);
+      font-size: 0.82rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      margin: 0 0 16px;
+      font-size: clamp(1.9rem, 3.8vw, 2.8rem);
+      line-height: 1.25;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .hero h1 span {
+      background: linear-gradient(135deg, var(--cyan), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-desc {
+      max-width: 920px;
+      color: var(--text-muted);
+      font-size: clamp(1rem, 1.6vw, 1.15rem);
+      margin-bottom: 28px;
+    }
+
+    /* Section Titles */
+    .section-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 44px 0 24px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Problem Grid */
+    .problem-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 28px;
+      margin-bottom: 40px;
+    }
+
+    .problem-card {
+      padding: 32px;
+      position: relative;
+      transition: border-color 0.25s ease, transform 0.25s ease;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 24px;
+    }
+
+    @media (min-width: 960px) {
+      .problem-card {
+        grid-template-columns: 1fr 340px;
+        align-items: start;
+      }
+    }
+
+    .problem-card:hover {
+      border-color: var(--border-strong);
+      transform: translateY(-3px);
+    }
+
+    .problem-card.active-card {
+      border-color: rgba(70, 199, 255, 0.45);
+      background: linear-gradient(145deg, rgba(15, 30, 52, 0.88), rgba(9, 20, 36, 0.78));
+    }
+
+    .problem-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 12px;
+      border-radius: 8px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      width: fit-content;
+    }
+
+    .badge-ok { background: rgba(52, 211, 153, 0.16); color: var(--green); border: 1px solid rgba(52, 211, 153, 0.3); }
+    .badge-soon { background: rgba(148, 168, 192, 0.14); color: var(--text-muted); border: 1px solid var(--border-line); }
+
+    .problem-card h3 {
+      margin: 0 0 12px;
+      font-size: 1.45rem;
+      font-weight: 800;
+    }
+
+    .problem-card p {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin: 0 0 20px;
+    }
+
+    .action-group {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .preview-box {
+      background: #050b14;
+      border: 1px solid var(--border-line);
+      border-radius: 16px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .preview-box img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      display: block;
+      margin: 0 auto;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 36px 0;
+      color: var(--text-dim);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border-line);
+      margin-top: 50px;
+    }
+
+    footer a {
+      color: var(--cyan);
+      text-decoration: none;
+    }
   </style>
 </head>
 <body>
-  <div class="box">
-    <div class="spinner"></div>
-    <h2 style="margin:0 0 12px; font-size:1.4rem;">⚡ กำลังเข้าสู่ห้องเรียนวงจรแบตเตอรี่...</h2>
-    <p style="color:#a6b6cd; font-size:0.95rem; margin-bottom:20px;">กำลังนำคุณไปยังระบบเรียนรู้และสื่อการสอนแบบโต้ตอบสำหรับเตรียมสอบปากเปล่า</p>
-    <p style="font-size:0.9rem;"><a href="solution3/interactive_dashboard.html">คลิกที่นี่ หากเบราว์เซอร์ไม่เปลี่ยนหน้าให้อัตโนมัติ</a></p>
+  <div class="container">
+
+    <!-- Top Navigation Bar -->
+    <nav class="top-nav glass">
+      <a href="index.html" class="brand">
+        <div class="brand-icon">⚡</div>
+        <div>303212 Oral Exam Master Hub</div>
+      </a>
+      <div class="nav-links">
+        <a href="problems/problem-1/solution3/interactive_dashboard.html" class="btn primary">🚀 เปิดข้อที่ 1 (Interactive Lab)</a>
+        <a href="https://github.com/T3thr/circuit2-nu-en-lecture" target="_blank" class="btn github">⭐ GitHub Repo</a>
+      </div>
+    </nav>
+
+    <!-- Hero Banner -->
+    <header class="hero glass">
+      <div class="hero-badge">
+        <span>⚡ 303212 Electrical Circuit Analysis II</span>
+      </div>
+      <h1>คลังโจทย์และสื่อการเรียนรู้สอบปากเปล่า <span>(Oral Exam 5 ข้อ)</span></h1>
+      <p class="hero-desc">
+        ระบบรวมโจทย์วงจรไฟฟ้าพิเศษ 5 ข้อสำหรับเตรียมสอบปากเปล่าวิชา 303212 พร้อมสื่อการสอนโต้ตอบฉบับสมบูรณ์ (Interactive Dashboard), 
+        การพิสูจน์สมการทีละบรรทัด, การเปรียบเทียบเฉลยคิดด้วยมือของอาจารย์กับคอมพิวเตอร์ และบทซ้อมตอบกรรมการเกียรตินิยม
+      </p>
+    </header>
+
+    <!-- Section Title -->
+    <div class="section-title">
+      <h2><span style="font-size:1.6rem">📋</span> รายการโจทย์สอบปากเปล่าทั้งหมด (5 ข้อ)</h2>
+      <span style="color:var(--text-muted); font-size:0.9rem">เลือกเปิดสื่อการเรียนรู้แต่ละข้อ</span>
+    </div>
+
+    <!-- 5 Problems List -->
+    <div class="problem-grid">
+
+      <!-- PROBLEM 1 CARD -->
+      <div class="problem-card glass active-card">
+        <div>
+          <span class="problem-badge badge-ok">✅ ข้อที่ 1 — สมบูรณ์พร้อมใช้งาน (Master Solution)</span>
+          <h3>ข้อที่ 1 — วงข่ายความต้านทาน &amp; แบบจำลองพารามิเตอร์แบตเตอรี่</h3>
+          <p>
+            พิจารณาวงข่ายความต้านทานและโมเดลแบตเตอรี่ $v_s(t) = E_o - Kq + A_a e^{-B_a q} - A_b e^{-B_b(Q_n-q)}$ 
+            หาค่ากระแส $i(t)$ ด้วย KCL และหาพารามิเตอร์ 8 ตัวจากข้อมูลวัดจริง 2,753 จุด (t = 0...2752 s) 
+            พร้อมเฉลยวิธี Piecewise Asymptotic Fitting $y=mx+c$ ด้วยมือของอาจารย์ และคัมภีร์ซ้อมตอบสอบปากเปล่า 100/100
+          </p>
+          <div class="action-group">
+            <a href="problems/problem-1/solution3/interactive_dashboard.html" class="btn primary">🚀 เปิดสื่อการสอนโต้ตอบ (Interactive Dashboard)</a>
+            <a href="problems/problem-1/oral_exam_problem.md" class="btn">📄 โจทย์ (.md)</a>
+            <a href="problems/problem-1/reference/%E0%B8%87%E0%B8%B2%E0%B8%99%20%E0%B8%84%E0%B8%AA%E0%B8%8A.%20(1).pdf" target="_blank" class="btn">👨‍🏫 เฉลยอาจารย์ (PDF)</a>
+            <a href="problems/problem-1/OFFICIAL_SOLUTION_ANALYSIS.md" class="btn">📝 วิเคราะห์เฉลย (.md)</a>
+            <a href="problems/problem-1/PROBLEM_EVALUATION_AND_KNOWLEDGE_MAP.md" class="btn">🗺️ แผนผังความรู้ (.md)</a>
+            <a href="problems/problem-1/solution2/interactivedashboard.html" class="btn">🤖 Solution 2 Lab</a>
+          </div>
+        </div>
+        <div class="preview-box">
+          <img src="problems/problem-1/image.png" alt="รูปโจทย์ข้อที่ 1">
+          <p style="color:var(--text-dim); font-size:0.8rem; margin:8px 0 0;">รูปภาพโจทย์ข้อที่ 1 (image.png)</p>
+        </div>
+      </div>
+
+      <!-- PROBLEM 2 CARD -->
+      <div class="problem-card glass">
+        <div>
+          <span class="problem-badge badge-soon">📌 ข้อที่ 2 — กำลังจัดเตรียมเนื้อหา</span>
+          <h3>ข้อที่ 2 — โจทย์สอบปากเปล่า วงจรไฟฟ้าพิเศษ ข้อที่ 2</h3>
+          <p>
+            โจทย์วงจรไฟฟ้าวิเคราะห์เชิงลึกข้อที่ 2 พร้อมบทวิเคราะห์พารามิเตอร์และสื่อการสอนแบบโต้ตอบสำหรับเตรียมสอบปากเปล่า 303212
+          </p>
+          <div class="action-group">
+            <a href="#" class="btn disabled">⏳ กำลังจัดเตรียมเนื้อหา (Coming Soon)</a>
+          </div>
+        </div>
+        <div class="preview-box" style="display:grid; place-items:center; min-height:140px; color:var(--text-dim)">
+          <div>🔒 ข้อที่ 2<br><span style="font-size:0.8rem">Coming Soon</span></div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 3 CARD -->
+      <div class="problem-card glass">
+        <div>
+          <span class="problem-badge badge-soon">📌 ข้อที่ 3 — กำลังจัดเตรียมเนื้อหา</span>
+          <h3>ข้อที่ 3 — โจทย์สอบปากเปล่า วงจรไฟฟ้าพิเศษ ข้อที่ 3</h3>
+          <p>
+            โจทย์วงจรไฟฟ้าวิเคราะห์เชิงลึกข้อที่ 3 พร้อมบทวิเคราะห์พารามิเตอร์และสื่อการสอนแบบโต้ตอบสำหรับเตรียมสอบปากเปล่า 303212
+          </p>
+          <div class="action-group">
+            <a href="#" class="btn disabled">⏳ กำลังจัดเตรียมเนื้อหา (Coming Soon)</a>
+          </div>
+        </div>
+        <div class="preview-box" style="display:grid; place-items:center; min-height:140px; color:var(--text-dim)">
+          <div>🔒 ข้อที่ 3<br><span style="font-size:0.8rem">Coming Soon</span></div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 4 CARD -->
+      <div class="problem-card glass">
+        <div>
+          <span class="problem-badge badge-soon">📌 ข้อที่ 4 — กำลังจัดเตรียมเนื้อหา</span>
+          <h3>ข้อที่ 4 — โจทย์สอบปากเปล่า วงจรไฟฟ้าพิเศษ ข้อที่ 4</h3>
+          <p>
+            โจทย์วงจรไฟฟ้าวิเคราะห์เชิงลึกข้อที่ 4 พร้อมบทวิเคราะห์พารามิเตอร์และสื่อการสอนแบบโต้ตอบสำหรับเตรียมสอบปากเปล่า 303212
+          </p>
+          <div class="action-group">
+            <a href="#" class="btn disabled">⏳ กำลังจัดเตรียมเนื้อหา (Coming Soon)</a>
+          </div>
+        </div>
+        <div class="preview-box" style="display:grid; place-items:center; min-height:140px; color:var(--text-dim)">
+          <div>🔒 ข้อที่ 4<br><span style="font-size:0.8rem">Coming Soon</span></div>
+        </div>
+      </div>
+
+      <!-- PROBLEM 5 CARD -->
+      <div class="problem-card glass">
+        <div>
+          <span class="problem-badge badge-soon">📌 ข้อที่ 5 — กำลังจัดเตรียมเนื้อหา</span>
+          <h3>ข้อที่ 5 — โจทย์สอบปากเปล่า วงจรไฟฟ้าพิเศษ ข้อที่ 5</h3>
+          <p>
+            โจทย์วงจรไฟฟ้าวิเคราะห์เชิงลึกข้อที่ 5 พร้อมบทวิเคราะห์พารามิเตอร์และสื่อการสอนแบบโต้ตอบสำหรับเตรียมสอบปากเปล่า 303212
+          </p>
+          <div class="action-group">
+            <a href="#" class="btn disabled">⏳ กำลังจัดเตรียมเนื้อหา (Coming Soon)</a>
+          </div>
+        </div>
+        <div class="preview-box" style="display:grid; place-items:center; min-height:140px; color:var(--text-dim)">
+          <div>🔒 ข้อที่ 5<br><span style="font-size:0.8rem">Coming Soon</span></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+      <p>
+        ⚡ 303212 Electrical Circuit Analysis II — Oral Exam Master Portal<br>
+        Hosted on GitHub Repository: <a href="https://github.com/T3thr/circuit2-nu-en-lecture" target="_blank">github.com/T3thr/circuit2-nu-en-lecture</a>
+      </p>
+    </footer>
+
   </div>
 </body>
 </html>
