@@ -13,8 +13,8 @@
 | **1** | วงข่ายความต้านทาน &amp; แบบจำลองแบตเตอรี่ | ✅ พร้อมใช้งาน | [เข้าสู่เฉลย &amp; สื่อโต้ตอบ](problems/problem-1/solution3/interactive_dashboard.html) |
 | 2 | — | 📌 รอดำเนินการ | — |
 | **3** | วงข่ายความนำไฟฟ้า &amp; สมการชุดตัด | ✅ พร้อมใช้งาน | [เข้าสู่เฉลย &amp; สื่อโต้ตอบ](problems/problem-3/solution3/interactive_dashboard.html) |
-| 4 | — | 📌 รอดำเนินการ | — |
-| 5 | — | 📌 รอดำเนินการ | — |
+| **4** | วงข่ายความนำไฟฟ้า &amp; แหล่งกำเนิดกระแสไม่อิสระ (CCCS) | ✅ พร้อมใช้งาน | [เข้าสู่เฉลย &amp; สื่อโต้ตอบ](problems/problem-4/solution3/interactive_dashboard.html) |
+| **5** | วงข่ายความนำไฟฟ้า &amp; Directed Graph | ✅ พร้อมใช้งาน | [เข้าสู่เฉลย &amp; สื่อโต้ตอบ](problems/problem-5/solution3/interactive_dashboard.html) |
 
 ---
 

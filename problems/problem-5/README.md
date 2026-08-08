@@ -6,6 +6,8 @@
 
 ## 📌 เอกสารและสื่อการสอนประจำข้อที่ 5
 
+✅ **พร้อมใช้งาน:** [เข้าสู่เฉลย & สื่อโต้ตอบ](solution3/interactive_dashboard.html)
+
 1. **[PROMPT_FOR_CLAUDE_OPUS.md](PROMPT_FOR_CLAUDE_OPUS.md):** Master Prompt สำหรับส่งสั่งการ Claude Opus / Claude 3.7 Sonnet เพื่อประมวลผลเฉลยละเอียดและแดชบอร์ดตามมาตรฐาน **Skill `circuit2-oral-exam-generator`**
 2. **[oral_exam_problem.md](oral_exam_problem.md):** ถอดข้อความโจทย์ต้นฉบับ รูปภาพวงจร กราฟมีทิศทาง และตารางสรุปตัวแปร (Component & Graph Edge Matrix)
 3. **[image.png](image.png) & [circuit_fig5.png](circuit_fig5.png):** รูปภาพโจทย์ วงจรไฟฟ้า และกราฟมีทิศทางกำกับต้นฉบับ
