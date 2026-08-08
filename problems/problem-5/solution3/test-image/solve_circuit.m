@@ -1,4 +1,4 @@
-% Solve Circuit Problem 5 using Fundamental Cut-set Method (Tree = {1, 2})
+% Solve Circuit Problem 5 using Fundamental Cut-set Method (4 Branches: Tree = {1, 2}, Links = {3, 4})
 function res = solve_circuit(G1, G2, G3, G4, E1, E2, E3)
     if nargin < 7, E3 = 2.0; end
     if nargin < 6, E2 = 6.0; end
@@ -18,7 +18,7 @@ function res = solve_circuit(G1, G2, G3, G4, E1, E2, E3)
     iE2 = i2 - iG4;
     i4 = iG4 + iE2;
     
-    fprintf('=== Solution for Problem 5 (Tree = {1, 2}) ===\n');
+    fprintf('=== Solution for Problem 5 (4 Branches: Tree = {1, 2}, Links = {3, 4}) ===\n');
     fprintf('Va = %.6f V\n', Va);
     fprintf('Vb = %.6f V\n', Vb);
     fprintf('i1 = %.6f A\n', i1);

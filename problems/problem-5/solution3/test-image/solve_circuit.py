@@ -1,17 +1,16 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Solve Circuit Problem 5 using Fundamental Cut-set Method with Tree = {1, 2}
+Solve Circuit Problem 5 using Fundamental Cut-set Method with EXACTLY 4 BRANCHES (Tree = {1, 2}, Links = {3, 4})
 """
 
 import numpy as np
 
 def solve_circuit(G1=0.4, G2=0.3, G3=0.2, G4=0.5, E1=12.0, E2=6.0, E3=2.0):
-    # Fundamental Cut-set Matrix for Tree = {1, 2}
-    # Branches: [1, 2, 3, 4, 5]
+    # Fundamental Cut-set Matrix for 4 Branches: [1, 2, 3, 4]
     Qf = np.array([
-        [ 1,  0, -1, -1, -1],
-        [ 0,  1,  0, -1, -1]
+        [ 1,  0, -1, -1],
+        [ 0,  1,  0, -1]
     ])
     
     # Voltage constraint Vb = -E2
@@ -21,7 +20,7 @@ def solve_circuit(G1=0.4, G2=0.3, G3=0.2, G4=0.5, E1=12.0, E2=6.0, E3=2.0):
     denom = G1 + G2 + G3
     Va = (G1 * E1 - G2 * (E2 + E3)) / denom
     
-    # Branch currents
+    # Branch currents for 4 branches
     i1 = G1 * (E1 - Va)
     i2 = G2 * (Va + E3 - Vb)
     i3 = G3 * Va
@@ -29,7 +28,7 @@ def solve_circuit(G1=0.4, G2=0.3, G3=0.2, G4=0.5, E1=12.0, E2=6.0, E3=2.0):
     iE2 = i2 - iG4
     i4 = iG4 + iE2
     
-    # Residual checks
+    # KCL Residual checks for Cut c1 and Cut c2
     residual_c1 = -i1 + i3 + i4
     residual_c2 = -i2 + i4
     
@@ -43,14 +42,14 @@ def solve_circuit(G1=0.4, G2=0.3, G3=0.2, G4=0.5, E1=12.0, E2=6.0, E3=2.0):
 
 if __name__ == "__main__":
     res = solve_circuit()
-    print("=== Solution for Problem 5 (Tree = {1, 2}) ===")
+    print("=== Solution for Problem 5 (4 Branches: Tree = {1, 2}, Links = {3, 4}) ===")
     print(f"Va = {res['Va']:.6f} V (exact: 8/3 V)")
     print(f"Vb = {res['Vb']:.6f} V")
-    print(f"i1 = {res['i1']:.6f} A")
-    print(f"i2 = {res['i2']:.6f} A")
-    print(f"i3 = {res['i3']:.6f} A")
-    print(f"i4 = {res['i4']:.6f} A")
-    print(f"iG4 = {res['iG4']:.6f} A")
-    print(f"iE2 = {res['iE2']:.6f} A")
+    print(f"i1 = {res['i1']:.6f} A (Tree 1)")
+    print(f"i2 = {res['i2']:.6f} A (Tree 2)")
+    print(f"i3 = {res['i3']:.6f} A (Link 3)")
+    print(f"i4 = {res['i4']:.6f} A (Link 4 = iG4 + iE2)")
+    print(f"  └─ iG4 = {res['iG4']:.6f} A")
+    print(f"  └─ iE2 = {res['iE2']:.6f} A")
     print(f"KCL Cut c1 residual: {res['residual_c1']:.2e} A")
     print(f"KCL Cut c2 residual: {res['residual_c2']:.2e} A")
