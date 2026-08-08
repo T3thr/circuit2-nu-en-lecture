@@ -3,10 +3,12 @@
 
 Topology/orientation:
   1 e->a: G1 in series with E1, i1=G1(E1-Va)
-  2 a->b: E3 in series with G2, i2=G2(Va-E3-Vb)
+  2 a->b: E3 in series with G2 (minus terminal at a), i2=G2(Va+E3-Vb)
   3 a->e: G3, i3=G3 Va
-  4 b->e: G4, i4=G4 Vb
-  5 b->e: ideal E2 with negative terminal at b, Vb=-E2
+  4 e->b: composite one-port G4 || E2, i4=iG4+iE2
+  Component current iG4=-G4 Vb; E2 imposes Vb=-E2.
+  The supplied directed graph numbers four conductance branches. A fifth
+  column is used only in the augmented physical-network incidence matrix.
 
 Run: python3 solve_circuit.py [--G1 ... --json result.json]
 Uses Python standard library only; no NumPy required.
@@ -33,28 +35,35 @@ def network(g1,g2,g3,g4,e1,e2,e3):
     den=g1+g2+g3
     if den<=0: raise ValueError("G1+G2+G3 must be positive")
     vb=-e2
-    va=(g1*e1+g2*e3-g2*e2)/den
+    va=(g1*e1-g2*e3-g2*e2)/den
     # A x=b: second row is the ideal-source constraint Vb=-E2
     A=[[den,-g2],[0.0,1.0]]
-    rhs=[g1*e1+g2*e3,-e2]
+    rhs=[g1*e1-g2*e3,-e2]
     va2,vb2=solve2(A,rhs)
-    i1=g1*(e1-va); i2=g2*(va-e3-vb); i3=g3*va; i4=g4*vb
-    ie2=i2-i4                         # direction b->e in stated KCL
-    kcla=i1-i3-i2
-    kclb=i2-i4-ie2
-    # Complete/reduced incidence convention: +1 leaves node, -1 enters node
-    Aa=[[-1,1,1,0,0],[0,-1,0,1,1],[1,0,-1,-1,-1]] # rows a,b,e
-    Ar=[row[:] for row in Aa[:2]]
-    Qg=[[-1,1,1,0],[0,-1,0,1]]       # conductance columns 1..4
+    i1=g1*(e1-va); i2=g2*(va+e3-vb); i3=g3*va; ig4=-g4*vb
+    ie2=-i2-ig4                       # E2 reference direction is e->b
+    i4=ig4+ie2                        # graph-branch current of composite G4 || E2
+    kcla=-i1+i2+i3                    # cut c1 around node a
+    kclb_graph=-i2-i4                 # graph KCL: branch 4 is composite
+    kclb_physical=-i2-ig4-ie2         # expanded component KCL
+    # +1 leaves a node, -1 enters it. The printed graph has branches 1..4.
+    Agraph=[[-1,1,1,0],[0,-1,0,-1],[1,0,-1,1]] # rows a,b,e
+    Ar=[row[:] for row in Agraph[:2]]
+    # The physical circuit adds ideal-source current iE2 in parallel with branch 4.
+    Aaug=[[-1,1,1,0,0],[0,-1,0,-1,-1],[1,0,-1,1,1]]
+    Qg=[[-1,1,1,0],[0,-1,0,-1]]      # conductance columns 1..4 (branch 4 is e->b)
     Y=[[g1,0,0,0],[0,g2,0,0],[0,0,g3,0],[0,0,0,g4]]
     M=matmul(matmul(Qg,Y),transpose(Qg))
     return {
       "parameters":{"G1":g1,"G2":g2,"G3":g3,"G4":g4,"E1":e1,"E2":e2,"E3":e3},
-      "A":A,"rhs":rhs,"Aa":Aa,"Ar":Ar,"Qg":Qg,"Yb":Y,"QYQT":M,
+      "A":A,"rhs":rhs,"Agraph":Agraph,"Aaugmented":Aaug,"Ar":Ar,
+      "Qg":Qg,"Yb":Y,"QYQT":M,
       "voltage":{"Va":va,"Vb":vb},
-      "current":{"iG1":i1,"iG2":i2,"iG3":i3,"iG4":i4,"iE2":ie2},
-      "residual":{"formula_vs_matrix":max(abs(va-va2),abs(vb-vb2)),"KCL_a":kcla,"KCL_b":kclb},
-      "note":"RHS sign is +G2*E3 because i2=G2(Va-E3-Vb); the alternative -G2*E3 is inconsistent with that constitutive equation."
+      "current":{"iG1":i1,"iG2":i2,"iG3":i3,"iG4":ig4,"iE2":ie2,"i4_total":i4},
+      "residual":{"formula_vs_matrix":max(abs(va-va2),abs(vb-vb2)),
+                  "KCL_a":kcla,"KCL_b_graph":kclb_graph,
+                  "KCL_b_physical":kclb_physical},
+      "note":"The printed graph has four branches. Branch 4 is the composite G4 || E2 one-port: i4=iG4+iE2, while iG4=-G4*Vb."
     }
 
 def main():
