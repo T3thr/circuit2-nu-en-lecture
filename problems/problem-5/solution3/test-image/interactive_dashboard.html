@@ -16,13 +16,13 @@
 <main>
 <section class="panel" id="p1" role="tabpanel" aria-labelledby="t1"><div class="card"><h2>📋 โจทย์จริงและ Component Matrix (4 กิ่ง)</h2><p class="lead">วงจรมี 4 กิ่งตรงตามรูป 5 (ข): <b>Tree Twigs = {1, 2}</b> (เส้นหนา) และ <b>Links = {3, 4}</b> (เส้นบาง, กิ่ง 4 ชี้ e → b)</p><figure><img src="cut_set_detailed.png" alt="การตัดชุดตัดพื้นฐาน Tree={1,2} 4 กิ่ง"><figcaption>กด 📐 มุมซ้ายล่างเพื่อสลับดูรูปภาพ Cut-set แผนผังและวงจรต้นฉบับได้ตลอดเวลา</figcaption></figure><div class="tw"><table><thead><tr><th>กิ่งกราฟ</th><th>ประเภท</th><th>ทิศ</th><th>องค์ประกอบ</th><th>สมการกระแสกิ่ง</th></tr></thead><tbody><tr><td>1</td><td><b style="color:var(--blue)">Tree Twig</b></td><td>e → a</td><td>G₁–E₁</td><td>i₁ = G₁(E₁ − Vₐ)</td></tr><tr><td>2</td><td><b style="color:var(--blue)">Tree Twig</b></td><td>a → b</td><td>E₃–G₂</td><td>i₂ = G₂(Vₐ + E₃ − Vᵦ)</td></tr><tr><td>3</td><td><b>Link</b></td><td>a → e</td><td>G₃</td><td>i₃ = G₃Vₐ</td></tr><tr><td>4</td><td><b>Link</b></td><td>e → b</td><td>G₄ ∥ E₂</td><td>i₄ = −G₄Vᵦ + iE₂ (iG₄ = −G₄Vᵦ)</td></tr></tbody></table></div><div class="note win"><b>ผลลัพธ์สูตรปิดของแรงดันโหนด Vₐ และ Vᵦ:</b></div><div class="eq"><b>Vᵦ = −E₂</b> &nbsp;·&nbsp; <b>Vₐ = (G₁E₁ − G₂E₃ − G₂E₂)/(G₁+G₂+G₃)</b></div></div></section>
 
-<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden><div class="card"><h2>🧭 Directed Graph: Tree = {1, 2} และ Links = {3, 4} (4 กิ่งเป๊ะ)</h2><p class="lead">เส้นหนาแทน Tree Twigs (กิ่ง 1 และ 2) เชื่อมต่อปม $e - a - b$ โดยกิ่ง 4 ชี้จาก $e 	o b$</p><svg viewBox="0 0 760 300" role="img" aria-label="กราฟมีทิศทางปม a b e และกิ่ง 1 ถึง 4"><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="context-stroke"/></marker></defs><path class="edge" style="stroke-width:6;stroke:var(--blue)" d="M130 225 Q90 135 160 78"/><path class="edge" style="stroke-width:6;stroke:var(--blue)" d="M185 70 L555 70"/><path class="edge" style="stroke-width:2.5;stroke:var(--soft)" d="M175 86 Q250 185 170 220"/><path class="edge" style="stroke-width:2.5;stroke:var(--soft)" d="M415 225 Q620 170 570 88"/><circle class="node" cx="170" cy="70" r="23"/><circle class="node" cx="575" cy="70" r="23"/><circle class="node" cx="400" cy="230" r="23"/><text class="svgtext" x="164" y="76">a</text><text class="svgtext" x="569" y="76">b</text><text class="svgtext" x="394" y="236">e</text><text class="svgtext" x="80" y="145">1 (Tree)</text><text class="svgtext" x="350" y="55">2 (Tree)</text><text class="svgtext" x="245" y="165">3 (Link)</text><text class="svgtext" x="530" y="170">4 (Link e→b)</text></svg><h3>Fundamental Cut-set Matrix $[Q_f]$ ขนาด 2 x 4</h3><p>ตัดครั้งละ 1 Tree Twig: $c_1$ ตัดกิ่ง 1 (Twig) และ 3,4 (Links) · $c_2$ ตัดกิ่ง 2 (Twig) และ 4 (Link)</p><div class="eq">Q_f = [ +1&nbsp; 0&nbsp; −1&nbsp; +1 ; &nbsp;0&nbsp; +1&nbsp; 0&nbsp; +1 ]</div></div></section>
+<section class="panel" id="p2" role="tabpanel" aria-labelledby="t2" hidden><div class="card"><h2>🧭 Directed Graph: Tree = {1, 2} และ Links = {3, 4} (4 กิ่งเป๊ะ)</h2><p class="lead">เส้นหนาแทน Tree Twigs (กิ่ง 1 และ 2) เชื่อมต่อปม $e - a - b$ โดยกิ่ง 4 ชี้จาก $e \to b$</p><svg viewBox="0 0 760 300" role="img" aria-label="กราฟมีทิศทางปม a b e และกิ่ง 1 ถึง 4"><defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8z" fill="context-stroke"/></marker></defs><path class="edge" style="stroke-width:6;stroke:var(--blue)" d="M130 225 Q90 135 160 78"/><path class="edge" style="stroke-width:6;stroke:var(--blue)" d="M185 70 L555 70"/><path class="edge" style="stroke-width:2.5;stroke:var(--soft)" d="M175 86 Q250 185 170 220"/><path class="edge" style="stroke-width:2.5;stroke:var(--soft)" d="M415 225 Q620 170 570 88"/><circle class="node" cx="170" cy="70" r="23"/><circle class="node" cx="575" cy="70" r="23"/><circle class="node" cx="400" cy="230" r="23"/><text class="svgtext" x="164" y="76">a</text><text class="svgtext" x="569" y="76">b</text><text class="svgtext" x="394" y="236">e</text><text class="svgtext" x="80" y="145">1 (Tree)</text><text class="svgtext" x="350" y="55">2 (Tree)</text><text class="svgtext" x="245" y="165">3 (Link)</text><text class="svgtext" x="530" y="170">4 (Link e→b)</text></svg><h3>Fundamental Cut-set Matrix $[Q_f]$ ขนาด 2 x 4</h3><p>ตัดครั้งละ 1 Tree Twig: $c_1$ ตัดกิ่ง 1 (Twig) และ 3,4 (Links) · $c_2$ ตัดกิ่ง 2 (Twig) และ 4 (Link)</p><div class="eq">Q_f = [ +1&nbsp; 0&nbsp; −1&nbsp; +1 ; &nbsp;0&nbsp; +1&nbsp; 0&nbsp; +1 ]</div></div></section>
 
 <!-- TAB 3: EXTENSIVE 21-STEP PROOF -->
 <section class="panel" id="p3" role="tabpanel" aria-labelledby="t3" hidden>
 <div class="card">
 <h2>✏️ การพิสูจน์ KCL และแก้หา Vₐ, Vᵦ ละเอียด 21 ขั้นตอน (กิ่ง 4 ชี้ e → b)</h2>
-<p class="lead">แสดงการตั้งเมทริกซ์ $[Q_f] = egin{bmatrix} 1 & 0 & -1 & 1 \ 0 & 1 & 0 & 1 \end{bmatrix}$ และย้ายข้างแก้สมการทีละบรรทัด</p>
+<p class="lead">แสดงการตั้งเมทริกซ์ $[Q_f] = \begin{bmatrix} 1 & 0 & -1 & 1 \\ 0 & 1 & 0 & 1 \end{bmatrix}$ และย้ายข้างแก้สมการทีละบรรทัด</p>
 
 <h3>1. ทิศอ้างอิงกิ่งจากกราฟโจทย์ (Figure 5b)</h3>
 <div class="note win">
@@ -36,7 +36,7 @@
 </div>
 
 <div class="eq" style="font-size:1.2rem;">
-Q_f = egin{bmatrix} 1 & 0 & -1 & 1 \ 0 & 1 & 0 & 1 \end{bmatrix}
+Q_f = \begin{bmatrix} 1 & 0 & -1 & 1 \\ 0 & 1 & 0 & 1 \end{bmatrix}
 </div>
 
 <h3>3. สมการ Cut-set KCL: $[Q_f] \mathbf{i} = \mathbf{0}$</h3>
@@ -66,7 +66,7 @@ Q_f = egin{bmatrix} 1 & 0 & -1 & 1 \ 0 & 1 & 0 & 1 \end{bmatrix}
 <b>สูตรคำตอบปิด (Closed-form Solution):</b>
 <div class="eq" style="font-size:1.25rem;">
 <b>Vᵦ = −E₂</b><br>
-<b>Vₐ = rac{G₁E₁ − G₂E₃ − G₂E₂}{G₁ + G₂ + G₃}</b>
+<b>Vₐ = (G₁E₁ − G₂E₃ − G₂E₂)/(G₁ + G₂ + G₃)</b>
 </div>
 </div>
 
@@ -103,7 +103,61 @@ Q_f = egin{bmatrix} 1 & 0 & -1 & 1 \ 0 & 1 & 0 & 1 \end{bmatrix}
 </div>
 </section>
 
-<section class="panel" id="p4" role="tabpanel" aria-labelledby="t4" hidden><div class="card"><h2>✂️ Fundamental Cut-set Matrix Formulation (2 x 4)</h2><p>เมทริกซ์ชุดตัดพื้นฐานอิงทิศทางกิ่งของโจทย์ $[Q_f] = egin{bmatrix} 1 & 0 & -1 & 1 \ 0 & 1 & 0 & 1 \end{bmatrix}$:</p><div class="eq">egin{bmatrix} G_1+G_2+G_3 & -G_2 \ 0 & 1 \end{bmatrix} egin{bmatrix} V_a \ V_b \end{bmatrix} = egin{bmatrix} G_1E_1 - G_2E_3 \ -E_2 \end{bmatrix}</div><div class="note win">เมื่อแทน $V_b = -E_2$ จะได้ $V_a = rac{G_1E_1 - G_2E_3 - G_2E_2}{G_1+G_2+G_3} = 2.666667	ext{ V}$ ตรงตาม KCL 100%</div></div></section>
+<!-- TAB 4: BEAUTIFULLY RENDERED CUT-SET MATRIX & EQUATIONS -->
+<section class="panel" id="p4" role="tabpanel" aria-labelledby="t4" hidden>
+<div class="card">
+<h2>✂️ Fundamental Cut-set Matrix Formulation (2 x 4)</h2>
+<p class="lead">เมทริกซ์ชุดตัดพื้นฐานอิงทิศทางกิ่งของโจทย์ 4 กิ่ง ($1: e\to a, 2: a\to b, 3: a\to e, 4: e\to b$):</p>
+
+<h3>1. เมทริกซ์ชุดตัดพื้นฐาน $[Q_f]$ ขนาด 2 x 4</h3>
+<div class="tw">
+<table>
+<thead>
+<tr><th>แถว Cut-set</th><th>กิ่ง 1 (Twig 1)</th><th>กิ่ง 2 (Twig 2)</th><th>กิ่ง 3 (Link 3)</th><th>กิ่ง 4 (Link 4)</th><th>สมการ KCL ขอบเขต Cut</th></tr>
+</thead>
+<tbody>
+<tr><td><b>Cut c₁</b> (ล้อม {a, b})</td><td><b style="color:var(--cyan)">+1</b></td><td>0</td><td><b style="color:var(--gold)">−1</b></td><td><b style="color:var(--cyan)">+1</b></td><td><b>i₁ − i₃ + i₄ = 0</b></td></tr>
+<tr><td><b>Cut c₂</b> (ล้อมปม b)</td><td>0</td><td><b style="color:var(--cyan)">+1</b></td><td>0</td><td><b style="color:var(--cyan)">+1</b></td><td><b>i₂ + i₄ = 0</b></td></tr>
+</tbody>
+</table>
+</div>
+
+<div class="eq" style="font-size:1.3rem;">
+<b>Q_f = \begin{bmatrix} +1 & 0 & -1 & +1 \\ 0 & +1 & 0 & +1 \end{bmatrix}</b>
+</div>
+
+<h3>2. สมการ KCL ในรูปเมทริกซ์ $[Q_f] \mathbf{i} = \mathbf{0}$</h3>
+<div class="eq" style="font-size:1.15rem;">
+\begin{bmatrix} +1 & 0 & -1 & +1 \\ 0 & +1 & 0 & +1 \end{bmatrix}
+\begin{bmatrix} i_1 \\ i_2 \\ i_3 \\ i_4 \end{bmatrix}
+=
+\begin{bmatrix} 0 \\ 0 \end{bmatrix}
+</div>
+
+<h3>3. ระบบสมการเมทริกซ์เต็ม 3 ตัวแปร $(V_a, V_b, i_{E2})$</h3>
+<div class="eq" style="font-size:1.1rem;">
+\begin{bmatrix} G_1+G_3 & G_4 & -1 \\ -G_2 & G_2+G_4 & -1 \\ 0 & 1 & 0 \end{bmatrix}
+\begin{bmatrix} V_a \\ V_b \\ i_{E2} \end{bmatrix}
+=
+\begin{bmatrix} G_1 E_1 \\ G_2 E_3 \\ -E_2 \end{bmatrix}
+</div>
+
+<h3>4. ระบบสมการเมทริกซ์ลดรูป 2 ตัวแปร $(V_a, V_b)$ หลังกำจัด $i_{E2}$</h3>
+<div class="eq" style="font-size:1.25rem;">
+\begin{bmatrix} G_1+G_2+G_3 & -G_2 \\ 0 & 1 \end{bmatrix}
+\begin{bmatrix} V_a \\ V_b \end{bmatrix}
+=
+\begin{bmatrix} G_1 E_1 - G_2 E_3 \\ -E_2 \end{bmatrix}
+</div>
+
+<div class="note win">
+<b>คำตอบสุดท้าย (แทนค่าพารามิเตอร์):</b><br>
+• <b>Vᵦ = −E₂ = −6.000000 V</b><br>
+• <b>V␁ = (G₁E₁ − G₂E₃ − G₂E₂)/(G₁ + G₂ + G₃) = (4.8 − 0.6 − 1.8)/0.9 = 2.666667 V (8/3 V)</b>
+</div>
+</div>
+</section>
+
 <section class="panel" id="p5" role="tabpanel" aria-labelledby="t5" hidden><div class="card"><h2>🎓 Oral Defense Masterclass — 15 ข้อ (Tree = {1, 2})</h2><p class="lead">เก็งคำถามสอบปากเปล่าสำหรับการเลือก Tree = {1, 2} และ $Q_f = [[1,0,-1,1],[0,1,0,1]]$</p><div id="qaList"></div></div></section>
 <section class="panel" id="p6" role="tabpanel" aria-labelledby="t6" hidden><div class="card"><h2>🧪 Directed Graph & Conductance Laboratory (4 กิ่ง)</h2><div class="lab"><div class="controls" id="controls"></div><div><svg id="liveGraph" viewBox="0 0 760 330" role="img" aria-label="กราฟสดแสดงทิศและแรงดันปม 4 กิ่ง"></svg><div class="readouts"><div class="readout"><small>Vₐ</small><b id="rVa"></b></div><div class="readout"><small>Vᵦ</small><b id="rVb"></b></div><div class="readout"><small>Cut c₁ residual</small><b id="rKa"></b></div><div class="readout"><small>Cut c₂ residual</small><b id="rKb"></b></div></div><div class="eq" id="liveEq"></div><div class="tw"><table><thead><tr><th>กิ่ง</th><th>กระแสตามลูกศร [A]</th><th>ประเภทกิ่ง</th></tr></thead><tbody id="currents"></tbody></table></div></div></div></div></section>
 </main><div class="footer">303212 · Problem 5 · Fundamental Cut-set Analysis (4 Branches: Tree = {1, 2})</div></div>
